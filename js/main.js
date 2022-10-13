@@ -21,12 +21,10 @@ const getRandomNum = (min, max, quantum) => {
      if (min > max) {
         [min, max] = [max, min];
     } else if (min === max) {
-        alert('Введите несовпадающие числа');
         return -1;
     }
 
     if (min < 0 || max < 0) {
-        alert('Введите положительные числа');
         return -1;   
     }
 
