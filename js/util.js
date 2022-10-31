@@ -26,4 +26,28 @@ const getRandomFloat = (min, max, quantum) => {
   return +(Math.random() * (max - min) + min).toFixed(quantum);
 };
 
-export { getRandomInt, getRandomFloat };
+const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
+  if (num > 10 && Math.round((num % 100) / 10) === 1) {
+    return `${num} ${genitivePlural}`;
+  }
+  switch (num % 10) {
+    case 1: return `${num} ${nominative}`;
+    case 2:
+    case 3:
+    case 4: return `${num} ${genitiveSingular}`;
+  }
+  return `${num} ${genitivePlural}`;
+};
+
+const numGenitiveDecline = (num, genitiveSingular, genitivePlural) => {
+  if (num === 11) {
+    return `${num} ${genitivePlural}`;
+  }
+  switch (num % 10) {
+    case 1: return `${num} ${genitiveSingular}`;
+    default: return `${num} ${genitivePlural}`;
+  }
+};
+
+export { getRandomInt, getRandomFloat, numDecline, numGenitiveDecline };
+
