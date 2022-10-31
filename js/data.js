@@ -1,4 +1,4 @@
-import { getRandomInt, getRandomFloat } from './util';
+import { getRandomInt, getRandomFloat } from './util.js';
 
 const FEATURES = [
   'wifi',
@@ -26,6 +26,7 @@ const Coords = {
 const getObject = () => {
   const randomAva = getRandomInt(1, 10);
   const randomCheckin = getRandomInt(0, 2); // во сколько заехали, во столько же и выезжают
+  const randomCheckout = getRandomInt(0, 2); // во сколько заехали, во столько же и выезжают
 
   const randomFeatures = () => {
     const length = getRandomInt(1, 6);
@@ -50,14 +51,14 @@ const getObject = () => {
       avatar: `img/avatars/user${randomAva < 10 ? 0 : ''}${randomAva}.png`,
     },
     offer: {
-      title: 'Мозамбик ждёт тебя...',
+      title: 'Мозамбик ждёт тебя в Токио...',
       address: `${locationLAT}, ${locationLNG}`,
       price: getRandomInt(MIN_PRICE, MAX_PRICE),
       type: TYPE[getRandomInt(0, TYPE.length - 1)],
       rooms: getRandomInt(1, 7),
       guests: getRandomInt(1, 30),
       checkin: `${CHEK[randomCheckin]}`,
-      checkout: `${CHEK[randomCheckin]}`,
+      checkout: `${CHEK[randomCheckout]}`,
       features: randomFeatures(),
       description:
         'Евроремонт, всё чики-пуки, all inclusive, вид на Кремль из любого окна, даже если вы в Париже',
@@ -70,6 +71,7 @@ const getObject = () => {
   };
 };
 
-const demandedArray = Array.from({ length: 10 }, getObject);
+const offersArray = Array.from({ length: 10 }, getObject);
 
-export { demandedArray };
+export { offersArray };
+
