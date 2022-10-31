@@ -102,6 +102,3 @@ const renderCard = ({ offer, author }) => {
 
 const mapCanvas = document.querySelector('.map__canvas');
 mapCanvas.appendChild(renderCard(offersArray[0]));
-
-console.log(offersArray[0].offer.features);
-console.log(document.querySelectorAll('.popup__feature'));
