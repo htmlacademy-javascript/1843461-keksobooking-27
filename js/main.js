@@ -1,3 +1,3 @@
-import { toggleDisabled } from "./form.js";
+import { toggleDisabled } from './form.js';
 
 toggleDisabled();
