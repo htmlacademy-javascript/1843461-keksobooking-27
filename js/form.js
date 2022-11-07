@@ -12,11 +12,52 @@ const guestsToRooms = {
   3: ['3'],
 };
 
+const minPriceForType = {
+  bungalow: '0',
+  flat: '1 000',
+  hotel: '3 000',
+  house: ' 5 000',
+  palace: '10 000'
+};
+
+const ckeckIn = {
+  '12:00': 'После 12',
+  '13:00': 'После 13',
+  '14:00': 'После 14',
+};
+const ckeckOut = {
+  '12:00': 'Выезд до 12',
+  '13:00': 'Выезд до 13',
+  '14:00': 'Выезд до 14',
+};
+
 const formMap = document.querySelectorAll('.map__filters select, .map__filters fieldset');
 const formAd = document.querySelectorAll('.ad-form fieldset');
 const adFormElement = document.querySelector('.ad-form');
 const roomsNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
+
+//Валидация мин-ой цены при выборе типа жилья
+const pricePerNight = document.querySelector('#price');
+const typeOfLiving = document.querySelector('#type');
+const validateMinPrice = (evt) => {
+  pricePerNight.placeholder = minPriceForType[evt.target.value];
+};
+const onTypeOfLivingChange = (evt) => validateMinPrice(evt);
+typeOfLiving.addEventListener('change', onTypeOfLivingChange);
+
+// Валидация времени выезда по времени заезда и наоборот
+const timein = document.querySelector('#timein');
+const timeout = document.querySelector('#timeout');
+const onTimeinChange = (evt) => {
+  timeout.value = evt.target.value;
+};
+const onTimeoutChange = (evt) => {
+  timein.value = evt.target.value;
+};
+timein.addEventListener('change', onTimeinChange);
+timeout.addEventListener('change', onTimeoutChange);
+
 
 const toggleDisabled = () => {
   document.querySelector('.map__filters').classList.toggle('map__filters--disabled');
@@ -72,13 +113,7 @@ capacity.addEventListener('change', onCapacityChange);
 
 adFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const isValid = pristine.validate();
-
-  if (isValid) { //временная заглушка с консолями со слов Игоря. "не виноватая я, он сам сказал" :))
-    console.log('Можно отправлять');
-  } else {
-    console.log(pristine.getErrors());
-  }
+  pristine.validate();
 });
 
 
