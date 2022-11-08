@@ -1,3 +1,5 @@
+import { TYPE } from './genesis.js';
+
 const roomsToGuests = {
   1: ['1'],
   2: ['1', '2'],
@@ -14,21 +16,10 @@ const guestsToRooms = {
 
 const minPriceForType = {
   bungalow: '0',
-  flat: '1 000',
-  hotel: '3 000',
-  house: ' 5 000',
-  palace: '10 000'
-};
-
-const ckeckIn = {
-  '12:00': 'После 12',
-  '13:00': 'После 13',
-  '14:00': 'После 14',
-};
-const ckeckOut = {
-  '12:00': 'Выезд до 12',
-  '13:00': 'Выезд до 13',
-  '14:00': 'Выезд до 14',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000'
 };
 
 const formMap = document.querySelectorAll('.map__filters select, .map__filters fieldset');
@@ -36,28 +27,8 @@ const formAd = document.querySelectorAll('.ad-form fieldset');
 const adFormElement = document.querySelector('.ad-form');
 const roomsNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
-
-//Валидация мин-ой цены при выборе типа жилья
 const pricePerNight = document.querySelector('#price');
 const typeOfLiving = document.querySelector('#type');
-const validateMinPrice = (evt) => {
-  pricePerNight.placeholder = minPriceForType[evt.target.value];
-};
-const onTypeOfLivingChange = (evt) => validateMinPrice(evt);
-typeOfLiving.addEventListener('change', onTypeOfLivingChange);
-
-// Валидация времени выезда по времени заезда и наоборот
-const timein = document.querySelector('#timein');
-const timeout = document.querySelector('#timeout');
-const onTimeinChange = (evt) => {
-  timeout.value = evt.target.value;
-};
-const onTimeoutChange = (evt) => {
-  timein.value = evt.target.value;
-};
-timein.addEventListener('change', onTimeinChange);
-timeout.addEventListener('change', onTimeoutChange);
-
 
 const toggleDisabled = () => {
   document.querySelector('.map__filters').classList.toggle('map__filters--disabled');
@@ -81,11 +52,14 @@ const pristine = new Pristine(
   true
 );
 
+const validatePrice = () => Number(pricePerNight.value) > Number(pricePerNight.min);
 const validateCapacity = () => roomsToGuests[roomsNumber.value].includes(capacity.value);
 const getCapacityError = () =>
   `Указанное количество комнат вмещает ${roomsToGuests[roomsNumber.value].join(' или ')}  число гостей`;
 const getRoomsNumberError = () =>
   `Для указанного количества гостей требуется ${guestsToRooms[capacity.value].join(' или ')} комнаты`;
+const getPriceError = () =>
+  `Минимальная цена за ${TYPE[typeOfLiving.value]} за ночь должна быть не менее ${pricePerNight.min}`;
 
 pristine.addValidator(
   roomsNumber,
@@ -96,6 +70,11 @@ pristine.addValidator(
   capacity,
   validateCapacity,
   getCapacityError
+);
+pristine.addValidator(
+  pricePerNight,
+  validatePrice,
+  getPriceError
 );
 
 const onRoomsNumberChange = () => {
@@ -116,5 +95,27 @@ adFormElement.addEventListener('submit', (evt) => {
   pristine.validate();
 });
 
+//Валидация мин-ой цены при выборе типа жилья
+const validateMinPrice = (evt) => {
+  pricePerNight.value = '';
+  pricePerNight.placeholder = minPriceForType[evt.target.value];
+  pricePerNight.min = minPriceForType[evt.target.value];
+  pristine.validate(pricePerNight);
+};
+
+const onTypeOfLivingChange = (evt) => validateMinPrice(evt);
+typeOfLiving.addEventListener('change', onTypeOfLivingChange);
+
+// Валидация времени выезда по времени заезда и наоборот
+const timein = document.querySelector('#timein');
+const timeout = document.querySelector('#timeout');
+const onTimeinChange = (evt) => {
+  timeout.value = evt.target.value;
+};
+const onTimeoutChange = (evt) => {
+  timein.value = evt.target.value;
+};
+timein.addEventListener('change', onTimeinChange);
+timeout.addEventListener('change', onTimeoutChange);
 
 export { toggleDisabled };

@@ -102,3 +102,5 @@ const renderCard = ({ offer, author }) => {
 
 const mapCanvas = document.querySelector('.map__canvas');
 mapCanvas.appendChild(renderCard(offersArray[0]));
+
+export { TYPE };
