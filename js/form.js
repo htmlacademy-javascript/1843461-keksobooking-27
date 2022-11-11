@@ -54,7 +54,7 @@ const pristine = new Pristine(
   true
 );
 
-const validatePrice = () => Number(pricePerNight.value) > Number(pricePerNight.min);
+const validatePrice = () => Number(pricePerNight.value) >= Number(pricePerNight.min);
 const validateCapacity = () => roomsToGuests[roomsNumber.value].includes(capacity.value);
 const getCapacityError = () =>
   `Указанное количество комнат вмещает ${roomsToGuests[roomsNumber.value].join(' или ')}  число гостей`;

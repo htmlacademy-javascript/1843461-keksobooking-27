@@ -1,6 +1,6 @@
-import './map';
+import './map.js';
 import { toggleDisabled } from './form.js';
-import './slider';
+import './slider.js';
 
 toggleDisabled();
 
