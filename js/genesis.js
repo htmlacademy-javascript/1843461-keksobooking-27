@@ -1,4 +1,3 @@
-import { offersArray } from './data.js';
 import { numDecline, numGenitiveDecline } from './util.js';
 
 const TYPE = {
@@ -100,7 +99,4 @@ const renderCard = ({ offer, author }) => {
   return popup;
 };
 
-const mapCanvas = document.querySelector('.map__canvas');
-mapCanvas.appendChild(renderCard(offersArray[0]));
-
-export { TYPE };
+export { TYPE, renderCard };

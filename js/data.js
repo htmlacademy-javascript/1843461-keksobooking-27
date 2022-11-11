@@ -1,5 +1,17 @@
 import { getRandomInt, getRandomFloat } from './util.js';
 
+const TITLES = [
+  'Хата на отвязи',
+  'Только для братанов',
+  'Девушкам-студенткам, чистоплотным',
+  'С видом на Кремль',
+  'Прекрасный вид на Темзу',
+  'Для свадебных торжеств',
+  'Штаб-квартира',
+  'Для тихих пенсионеров',
+  'Соседей не тревожить',
+  'Тихая хижина',
+];
 const FEATURES = [
   'wifi',
   'dishwasher',
@@ -19,8 +31,8 @@ const PHOTOS = [
 const QUANTUM = 5; //число знаков после запятой
 const CHEK = ['12:00', '13:00', '14:00'];
 const Coords = {
-  LAT: { MIN: 35.65, MAX: 35.70 },
-  LNG: { MIN: 139.7, MAX: 139.8 }
+  LAT: { MIN: 35.26781, MAX: 36.37824 },
+  LNG: { MIN: 139.28093, MAX: 140.61752 }
 };
 
 const getObject = () => {
@@ -51,7 +63,7 @@ const getObject = () => {
       avatar: `img/avatars/user${randomAva < 10 ? 0 : ''}${randomAva}.png`,
     },
     offer: {
-      title: 'Мозамбик ждёт тебя в Токио...',
+      title: TITLES[getRandomInt(0, TITLES.length - 1)],
       address: `${locationLAT}, ${locationLNG}`,
       price: getRandomInt(MIN_PRICE, MAX_PRICE),
       type: TYPE[getRandomInt(0, TYPE.length - 1)],

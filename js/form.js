@@ -1,4 +1,5 @@
 import { TYPE } from './genesis.js';
+import { resetMap } from './map.js';
 
 const roomsToGuests = {
   1: ['1'],
@@ -29,6 +30,7 @@ const roomsNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
 const pricePerNight = document.querySelector('#price');
 const typeOfLiving = document.querySelector('#type');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const toggleDisabled = () => {
   document.querySelector('.map__filters').classList.toggle('map__filters--disabled');
@@ -95,9 +97,12 @@ adFormElement.addEventListener('submit', (evt) => {
   pristine.validate();
 });
 
-//Валидация мин-ой цены при выборе типа жилья
+resetButton.addEventListener('click', () => {
+  resetMap();
+});
+
+//Валидация мин-ой цены и ползунка при выборе типа жилья
 const validateMinPrice = (evt) => {
-  pricePerNight.value = '';
   pricePerNight.placeholder = minPriceForType[evt.target.value];
   pricePerNight.min = minPriceForType[evt.target.value];
   pristine.validate(pricePerNight);
