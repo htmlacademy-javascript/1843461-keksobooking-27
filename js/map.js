@@ -1,14 +1,15 @@
 import { toggleDisabled } from './form.js';
 import { offersArray } from './data.js';
 import { renderCard } from './genesis.js';
+import { sliderElem } from './slider.js';
 
 const address = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .on('load', toggleDisabled)
   .setView({
-    lat: 35.6895,
-    lng: 139.692,
+    lat: 35.68950,
+    lng: 139.69200,
   }, 10);
 
 L.tileLayer(
@@ -34,8 +35,8 @@ const mainPinIcon = L.icon({
 
 const mainPin = L.marker(
   {
-    lat: 35.6895,
-    lng: 139.692,
+    lat: 35.68950,
+    lng: 139.69200,
   },
   {
     draggable: true,
@@ -81,6 +82,7 @@ const resetMap = () => {
     lat: 35.68950,
     lng: 139.69200,
   }, 10);
+  sliderElem.noUiSlider.set(1000);
 };
 
 export { resetMap };

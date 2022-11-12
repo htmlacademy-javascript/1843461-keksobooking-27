@@ -41,3 +41,5 @@ pricePerNight.addEventListener('change', function () {
   sliderElem.noUiSlider.set(this.value);
 });
 
+export { sliderElem };
+
